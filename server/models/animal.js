@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Happycall = require("./happycall");
 const Schema = mongoose.Schema;
 
 const animalSchema = new Schema(
@@ -37,10 +38,10 @@ const animalSchema = new Schema(
   { timestamps: true }
 );
 
-// animalSchema.post("findOneAndDelete", async function (animal) {
-//   if (animal.happycalls.length) {
-//     const res = await Happycall.deleteMany({ _id: { $in: animal.happycalls } });
-//   }
-// });
+animalSchema.post("findOneAndRemove", async function (animal) {
+  if (animal.happycalls.length) {
+    await Happycall.deleteMany({ _id: { $in: animal.happycalls } });
+  }
+});
 
 module.exports = mongoose.model("Animal", animalSchema);

@@ -4,6 +4,9 @@ import { AnimalDetail } from "./pages/animal/AnimalDetail";
 import { AnimalEdit } from "./pages/animal/AnimalEdit";
 import { AnimalListTable } from "./pages/animal/AnimalListTable";
 import { AnimalRegister } from "./pages/animal/AnimalRegister";
+import { HappycallDetail } from "./pages/happycall/HappycallDetail";
+import { HappycallListTable } from "./pages/happycall/HappycallListTable";
+import { HappycallRegister } from "./pages/happycall/HappycallRegister";
 
 function App() {
   return (
@@ -14,6 +17,15 @@ function App() {
         <Route path="animal/register" element={<AnimalRegister />} />
         <Route path="animal/:id" element={<AnimalDetail />} />
         <Route path="animal/:id/edit" element={<AnimalEdit />} />
+        <Route
+          path="animal/:id/happycall/register"
+          element={<HappycallRegister />}
+        />
+        <Route path="happycall" element={<HappycallListTable />} />
+        <Route
+          path="/animal/:id/happycall/:happycallId"
+          element={<HappycallDetail />}
+        />
       </Routes>
     </>
   );
