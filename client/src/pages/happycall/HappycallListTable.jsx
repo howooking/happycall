@@ -21,9 +21,9 @@ export const HappycallListTable = () => {
         <TableHead>
           <TableRow>
             <TableCell>환자이름</TableCell>
-            <TableCell align="right">주증상 or 진단명</TableCell>
-            <TableCell align="right">전화번호</TableCell>
-            <TableCell align="right"></TableCell>
+            <TableCell align="center">주증상 or 진단명</TableCell>
+            <TableCell align="center">전화번호</TableCell>
+            <TableCell align="center"></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -36,12 +36,12 @@ export const HappycallListTable = () => {
                 {happycall.animal?.breed === "cat" ? <FaCat /> : <FaDog />}
                 {happycall.animal?.name}
               </TableCell>
-              <TableCell align="right">{happycall.cc}</TableCell>
-              <TableCell align="right">
+              <TableCell align="center">{happycall.cc}</TableCell>
+              <TableCell align="center">
                 {happycall.animal?.phonenumber}
               </TableCell>
 
-              <TableCell align="right">
+              <TableCell align="center">
                 <Button
                   size="small"
                   variant="outlined"

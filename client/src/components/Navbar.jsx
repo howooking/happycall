@@ -1,6 +1,7 @@
+//Navbar과 검색기능
+
 import * as React from "react";
-import { styled, alpha } from "@mui/material/styles";
-import { AppBar, Box, Toolbar, InputBase, Button } from "@mui/material";
+import { AppBar, Box, Toolbar, Button, Modal } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { NavLink } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
@@ -8,17 +9,9 @@ import { useState } from "react";
 import SearchModal from "./SearchModal";
 
 export default function Navbar() {
-  const [isSearch, setIsSearch] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
-  const handleChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
-  console.log(searchTerm);
-
-  const handleSearchModal = () => {
-    setIsSearch((prev) => !prev);
-  };
-  console.log(isSearch);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   return (
     <>
@@ -26,13 +19,13 @@ export default function Navbar() {
         <AppBar position="static">
           <Toolbar>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Happy Call!
+              Happy Call
             </Typography>
             <Button
               variant="contained"
               startIcon={<SearchIcon />}
               disableElevation
-              onClick={handleSearchModal}
+              onClick={() => setOpen(true)}
             >
               Search
             </Button>
@@ -53,8 +46,8 @@ export default function Navbar() {
             </NavLink>
           </Toolbar>
         </AppBar>
+        <SearchModal open={open} setOpen={setOpen} handleClose={handleClose} />
       </Box>
-      {isSearch ? <SearchModal /> : null}
     </>
   );
 }

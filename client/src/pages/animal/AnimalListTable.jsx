@@ -23,12 +23,12 @@ export const AnimalListTable = () => {
         <TableHead>
           <TableRow>
             <TableCell>환자이름</TableCell>
-            <TableCell align="right">품종</TableCell>
-            <TableCell align="right">성별</TableCell>
-            <TableCell align="right">보호자</TableCell>
-            <TableCell align="right">생년월일(나이)</TableCell>
-            <TableCell align="right">전화번호</TableCell>
-            <TableCell align="right"></TableCell>
+            <TableCell align="center">품종</TableCell>
+            <TableCell align="center">성별</TableCell>
+            <TableCell align="center">보호자</TableCell>
+            <TableCell align="center">생년월일(나이)</TableCell>
+            <TableCell align="center">전화번호</TableCell>
+            <TableCell align="center"></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -40,14 +40,14 @@ export const AnimalListTable = () => {
               <TableCell component="th" scope="animal">
                 {animal.species === "cat" ? <FaCat /> : <FaDog />} {animal.name}
               </TableCell>
-              <TableCell align="right">{animal.breed}</TableCell>
-              <TableCell align="right">{animal.sex}</TableCell>
-              <TableCell align="right">{animal.owner}</TableCell>
-              <TableCell align="right">
+              <TableCell align="center">{animal.breed}</TableCell>
+              <TableCell align="center">{animal.sex}</TableCell>
+              <TableCell align="center">{animal.owner}</TableCell>
+              <TableCell align="center">
                 {animal.birth}({ageCalculator(animal.birth)}살)
               </TableCell>
-              <TableCell align="right">{animal.phonenumber}</TableCell>
-              <TableCell align="right">
+              <TableCell align="center">{animal.phonenumber}</TableCell>
+              <TableCell align="center">
                 <Button
                   size="small"
                   variant="outlined"

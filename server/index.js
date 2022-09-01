@@ -21,7 +21,7 @@ app.use(express.json());
 
 //Animal
 app.get("/animal", async (req, res) => {
-  const animals = await Animal.find({});
+  const animals = await Animal.find({}).populate("happycalls");
   res.send(animals);
 });
 
@@ -32,7 +32,7 @@ app.get("/animal/:id", async (req, res) => {
 });
 
 app.post("/animal", async (req, res) => {
-  const newAnimal = new Animal(req.body, { runValidators: true });
+  const newAnimal = new Animal(req.body);
   await newAnimal.save();
 });
 
