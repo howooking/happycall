@@ -1,5 +1,5 @@
+//node seeds/seeds.js 실행시 더미 데이터 20마리씩 추가
 const axios = require("axios");
-
 const dogbreedsArr = require("./dogbreeds");
 const dogbreeds = dogbreedsArr.map((val) => val.name);
 const catbreeds = require("./catbreeds");
@@ -66,5 +66,4 @@ const getRandomImgAndSeeds = async () => {
     await animal.save();
   }
 };
-
 getRandomImgAndSeeds();

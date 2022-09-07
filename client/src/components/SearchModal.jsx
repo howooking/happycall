@@ -1,11 +1,5 @@
 import * as React from "react";
-import {
-  InputAdornment,
-  TextField,
-  Modal,
-  Box,
-  Typography,
-} from "@mui/material";
+import { InputAdornment, TextField, Modal, Box } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
 import useFetch from "../hook/useFetch";
@@ -31,7 +25,7 @@ export default function SearchModal({ open, setOpen }) {
     }
   });
 
-  const style = {
+  const modalStyle = {
     position: "absolute",
     top: "50%",
     left: "50%",
@@ -43,6 +37,7 @@ export default function SearchModal({ open, setOpen }) {
     border: 0,
     borderRadius: "10px",
   };
+
   return (
     <Modal
       open={open}
@@ -50,7 +45,7 @@ export default function SearchModal({ open, setOpen }) {
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Box sx={style}>
+      <Box sx={modalStyle}>
         <TextField
           label="Search"
           value={searchTerm}
@@ -62,7 +57,7 @@ export default function SearchModal({ open, setOpen }) {
               </InputAdornment>
             ),
           }}
-          helperText="환자이름, 보호자이름, 전화번호로 검색하세요"
+          helperText="환자이름 or 보호자이름 or 전화번호로 검색하세요"
         />
         <Box>
           <SearchList
