@@ -39,11 +39,11 @@ export const AnimalRegister = () => {
         .post("http://localhost:5000/animal", register)
         .then((result) => {
           console.log(result);
+          navigate(`/animal/${result.data._id}`);
         })
         .catch((err) => {
           console.log(err);
         });
-      navigate("/animal");
     }
   };
 

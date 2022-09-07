@@ -1,4 +1,3 @@
-//node seeds/seeds.js 실행시 더미 데이터 20마리씩 추가
 const axios = require("axios");
 const dogbreedsArr = require("./dogbreeds");
 const dogbreeds = dogbreedsArr.map((val) => val.name);
@@ -11,7 +10,9 @@ const Animal = require("../models/animal");
 
 const mongoose = require("mongoose");
 mongoose
-  .connect("mongodb://localhost:27017/happyCall")
+  .connect(
+    "mongodb+srv://howoo:1234@cluster0.sxaggeo.mongodb.net/happycall?retryWrites=true&w=majority"
+  )
   .then(() => {
     console.log("mongoose connection open");
   })

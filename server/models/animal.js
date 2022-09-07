@@ -6,15 +6,15 @@ const animalSchema = new Schema(
   {
     name: {
       type: String,
-      // required: true,
+      required: [true, "name is required"],
     },
     owner: {
       type: String,
-      // required: true,
+      required: [true, "owner is required"],
     },
     phonenumber: {
       type: String,
-      // required: true,
+      required: [true, "phonenumber is required"],
     },
     species: {
       type: String,

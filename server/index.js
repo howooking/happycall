@@ -6,12 +6,10 @@ const cors = require("cors");
 const Animal = require("./models/animal");
 const Happycall = require("./models/happycall");
 const animalRoute = require("./routes/animal");
-const { errorHandler } = require("./middleware/errorMiddleware");
-
+const happycallRoute = require("./routes/happycall");
 const mongoose = require("mongoose");
-const { urlencoded } = require("express");
 mongoose
-  .connect("mongodb://localhost:27017/happyCall")
+  .connect(process.env.MONGO_URI)
   .then(() => {
     console.log("mongoose connection open");
   })
@@ -24,27 +22,14 @@ app.use(cors({ origin: "*" }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-//Animal
+//Animal Routes
 app.use("/animal", animalRoute);
 
-// Happycall
-app.get("/happycall", async (req, res) => {
-  const happycall = await Happycall.find({}).populate("animal");
-  res.json(happycall);
-});
-app.get("/happycall/:id", async (req, res) => {
-  const { id } = req.params;
-  const selectedHappycall = await Happycall.findById(id).populate("animal");
-  res.json(selectedHappycall);
-});
-app.put("/happycall/:id", async (req, res) => {
-  const { id } = req.params;
-  await Happycall.findByIdAndUpdate(
-    id,
-    { ...req.body, isDone: true },
-    { runValidators: true }
-  );
-});
+// Happycall Routes
+app.use("/happycall", happycallRoute);
+
+// Happycall관련된 route이지만 /animal이라서 routes로 따로 빼지 못함.
+//이런경우 어떻게?
 app.post("/animal/:id/happycall", async (req, res) => {
   const { id } = req.params;
   const animal = await Animal.findById(id);
@@ -59,11 +44,7 @@ app.delete("/animal/:id/happycall/:happycallId", async (req, res) => {
   const animal = await Animal.findById(id);
   animal.happycalls.pull(happycallId);
   await animal.save();
-});
-
-app.use((err, req, res, next) => {
-  console.log(err);
-  res.status(500).json({ statusCode: res.statusCode, errMessage: err.message });
+  res.status(200).json({ id: happycallId });
 });
 
 app.listen(port, () => {
