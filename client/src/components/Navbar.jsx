@@ -1,6 +1,7 @@
+//Navbar과 검색기능
+
 import * as React from "react";
-import { styled, alpha } from "@mui/material/styles";
-import { AppBar, Box, Toolbar, InputBase, Button } from "@mui/material";
+import { AppBar, Box, Toolbar, Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { NavLink } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
@@ -8,17 +9,7 @@ import { useState } from "react";
 import SearchModal from "./SearchModal";
 
 export default function Navbar() {
-  const [isSearch, setIsSearch] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
-  const handleChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
-  console.log(searchTerm);
-
-  const handleSearchModal = () => {
-    setIsSearch((prev) => !prev);
-  };
-  console.log(isSearch);
+  const [open, setOpen] = useState(false);
 
   return (
     <>
@@ -32,7 +23,7 @@ export default function Navbar() {
               variant="contained"
               startIcon={<SearchIcon />}
               disableElevation
-              onClick={handleSearchModal}
+              onClick={() => setOpen(true)}
             >
               Search
             </Button>
@@ -53,8 +44,8 @@ export default function Navbar() {
             </NavLink>
           </Toolbar>
         </AppBar>
+        <SearchModal open={open} setOpen={setOpen} />
       </Box>
-      {isSearch ? <SearchModal /> : null}
     </>
   );
 }

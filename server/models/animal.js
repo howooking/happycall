@@ -6,24 +6,22 @@ const animalSchema = new Schema(
   {
     name: {
       type: String,
-      required: true,
+      required: [true, "name is required"],
     },
     owner: {
       type: String,
-      required: true,
+      required: [true, "owner is required"],
     },
     phonenumber: {
       type: String,
-      required: true,
+      required: [true, "phonenumber is required"],
     },
     species: {
       type: String,
-      required: true,
     },
     breed: String,
     sex: {
       type: String,
-      enum: ["IM", "CM", "IF", "SF", "UK"],
     },
     birth: String,
     image: String,
@@ -38,10 +36,10 @@ const animalSchema = new Schema(
   { timestamps: true }
 );
 
-animalSchema.post("findOneAndRemove", async function (animal) {
-  if (animal.happycalls.length) {
-    await Happycall.deleteMany({ _id: { $in: animal.happycalls } });
-  }
-});
+// animalSchema.post("findOneAndRemove", async function (animal) {
+//   if (animal.happycalls.length) {
+//     await Happycall.deleteMany({ _id: { $in: animal.happycalls } });
+//   }
+// });
 
 module.exports = mongoose.model("Animal", animalSchema);

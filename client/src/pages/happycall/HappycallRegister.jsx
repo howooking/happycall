@@ -36,7 +36,7 @@ export const HappycallRegister = () => {
         .catch((err) => {
           console.log(err);
         });
-      navigate("/animal");
+      navigate("/happycall");
     }
   };
 

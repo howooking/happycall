@@ -40,6 +40,7 @@ export const AnimalEdit = () => {
   };
 
   if (!editState.breed) {
+    //이렇게 안하면 breed가 렌더링되지 않는 에러 발생
     return <CircularProgress />;
   }
   return (

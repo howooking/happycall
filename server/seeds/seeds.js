@@ -1,5 +1,4 @@
 const axios = require("axios");
-
 const dogbreedsArr = require("./dogbreeds");
 const dogbreeds = dogbreedsArr.map((val) => val.name);
 const catbreeds = require("./catbreeds");
@@ -11,7 +10,9 @@ const Animal = require("../models/animal");
 
 const mongoose = require("mongoose");
 mongoose
-  .connect("mongodb://localhost:27017/happyCall")
+  .connect(
+    "mongodb+srv://howoo:1234@cluster0.sxaggeo.mongodb.net/happycall?retryWrites=true&w=majority"
+  )
   .then(() => {
     console.log("mongoose connection open");
   })
@@ -66,5 +67,4 @@ const getRandomImgAndSeeds = async () => {
     await animal.save();
   }
 };
-
 getRandomImgAndSeeds();

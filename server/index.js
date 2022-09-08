@@ -1,71 +1,35 @@
 const express = require("express");
 const app = express();
-const port = 5000;
+const dotenv = require("dotenv").config();
+const port = process.env.PORT || 5000;
 const cors = require("cors");
 const Animal = require("./models/animal");
 const Happycall = require("./models/happycall");
-
+const animalRoute = require("./routes/animal");
+const happycallRoute = require("./routes/happycall");
 const mongoose = require("mongoose");
 mongoose
-  .connect("mongodb://localhost:27017/happyCall")
+  .connect(process.env.MONGO_URI)
   .then(() => {
     console.log("mongoose connection open");
   })
-  .catch((err) => {
+  .catch((error) => {
     console.log("error happened");
     console.log(error);
   });
 
 app.use(cors({ origin: "*" }));
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
-//Animal
-app.get("/animal", async (req, res) => {
-  const animals = await Animal.find({});
-  res.send(animals);
-});
+//Animal Routes
+app.use("/animal", animalRoute);
 
-app.get("/animal/:id", async (req, res) => {
-  const { id } = req.params;
-  const selectedAnimal = await Animal.findById(id);
-  res.send(selectedAnimal);
-});
+// Happycall Routes
+app.use("/happycall", happycallRoute);
 
-app.post("/animal", async (req, res) => {
-  const newAnimal = new Animal(req.body, { runValidators: true });
-  await newAnimal.save();
-});
-
-app.put("/animal/:id", async (req, res) => {
-  const { id } = req.params;
-  await Animal.findByIdAndUpdate(id, req.body, { runValidators: true });
-});
-app.delete("/animal/:id", async (req, res) => {
-  const { id } = req.params;
-  await Animal.findByIdAndRemove(id);
-});
-
-// Happycall
-app.get("/happycall", async (req, res) => {
-  const happycall = await Happycall.find({}).populate("animal");
-  res.send(happycall);
-});
-
-app.get("/happycall/:id", async (req, res) => {
-  const { id } = req.params;
-  const selectedHappycall = await Happycall.findById(id).populate("animal");
-  res.send(selectedHappycall);
-});
-
-app.put("/happycall/:id", async (req, res) => {
-  const { id } = req.params;
-  await Happycall.findByIdAndUpdate(
-    id,
-    { ...req.body, isDone: true },
-    { runValidators: true }
-  );
-});
-
+// Happycall관련된 route이지만 /animal이라서 routes로 따로 빼지 못함.
+//이런경우 어떻게?
 app.post("/animal/:id/happycall", async (req, res) => {
   const { id } = req.params;
   const animal = await Animal.findById(id);
@@ -74,13 +38,13 @@ app.post("/animal/:id/happycall", async (req, res) => {
   animal.happycalls.push(newHappycall);
   await animal.save();
 });
-
 app.delete("/animal/:id/happycall/:happycallId", async (req, res) => {
   const { id, happycallId } = req.params;
   await Happycall.findByIdAndDelete(happycallId);
   const animal = await Animal.findById(id);
   animal.happycalls.pull(happycallId);
   await animal.save();
+  res.status(200).json({ id: happycallId });
 });
 
 app.listen(port, () => {
