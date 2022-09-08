@@ -6,7 +6,7 @@ const {
   registerNewAnimal,
   updateAnimal,
   deleteAnimal,
-} = require("../controllers/animal");
+} = require("../controllers/animalController");
 
 router.route("/").get(getAllAnimal).post(registerNewAnimal);
 router

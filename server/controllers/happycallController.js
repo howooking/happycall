@@ -1,4 +1,4 @@
-const Happycall = require("../models/happycall");
+const Happycall = require("../models/happycallModel");
 
 // @desc    등록이 된 모든 해피콜 데이터를 가져온다.
 // @route   GET /happycall

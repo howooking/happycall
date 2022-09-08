@@ -1,23 +1,23 @@
+//global environment variables
+require("dotenv").config();
+
+//epress app
 const express = require("express");
 const app = express();
-const dotenv = require("dotenv").config();
 const port = process.env.PORT || 5000;
+
+//cors
 const cors = require("cors");
-const Animal = require("./models/animal");
-const Happycall = require("./models/happycall");
+
+//models
+const Animal = require("./models/animalModel");
+const Happycall = require("./models/happycallModel");
+
+//routes
 const animalRoute = require("./routes/animal");
 const happycallRoute = require("./routes/happycall");
-const mongoose = require("mongoose");
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => {
-    console.log("mongoose connection open");
-  })
-  .catch((error) => {
-    console.log("error happened");
-    console.log(error);
-  });
 
+//middlewares
 app.use(cors({ origin: "*" }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -47,6 +47,16 @@ app.delete("/animal/:id/happycall/:happycallId", async (req, res) => {
   res.status(200).json({ id: happycallId });
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+//mogoose
+const mongoose = require("mongoose");
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => {
+    //listening for requests
+    app.listen(port, () => {
+      console.log(`connected to DB and listening on port ${port}`);
+    });
+  })
+  .catch((error) => {
+    console.log(error);
+  });

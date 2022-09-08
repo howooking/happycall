@@ -1,10 +1,13 @@
-const Animal = require("../models/animal");
+const Animal = require("../models/animalModel");
+const mongoose = require("mongoose");
 
 // @desc    등록이 된 모든 동물을 가져온다.
 // @route   GET /animal
 // @access  Private
 const getAllAnimal = async (req, res) => {
-  const animals = await Animal.find({}).populate("happycalls");
+  const animals = await Animal.find({})
+    .sort({ createdAt: -1 })
+    .populate("happycalls");
   res.status(200).json(animals);
 };
 
@@ -13,10 +16,12 @@ const getAllAnimal = async (req, res) => {
 // @access  Private
 const getSelectedAnimal = async (req, res) => {
   const { id } = req.params;
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: "Animal not found" });
+  }
   const selectedAnimal = await Animal.findById(id);
   if (!selectedAnimal) {
-    res.status(400);
-    throw new Error("Animal not found");
+    return res.status(404).json({ error: "Animal not found" });
   }
   res.status(200).json(selectedAnimal);
 };
@@ -25,9 +30,12 @@ const getSelectedAnimal = async (req, res) => {
 // @route   POST /animal
 // @access  Private
 const registerNewAnimal = async (req, res) => {
-  const newAnimal = new Animal(req.body);
-  await newAnimal.save();
-  res.status(200).json(newAnimal);
+  try {
+    const newAnimal = await Animal.create(req.body);
+    res.status(200).json(newAnimal);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 };
 
 // @desc    해당 id를 가진 동물을 수정한다.
@@ -35,10 +43,16 @@ const registerNewAnimal = async (req, res) => {
 // @access  Private
 const updateAnimal = async (req, res) => {
   const { id } = req.params;
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "Animal not found" });
+  }
   const updatedAnimal = await Animal.findByIdAndUpdate(id, req.body, {
     runValidators: true,
     new: true,
   });
+  if (!updatedAnimal) {
+    return res.status(400).json({ error: "Animal not found" });
+  }
   res.status(200).json(updatedAnimal);
 };
 
@@ -47,8 +61,14 @@ const updateAnimal = async (req, res) => {
 // @access  Private
 const deleteAnimal = async (req, res) => {
   const { id } = req.params;
-  await Animal.findByIdAndRemove(id);
-  res.status(200).json({ id: id });
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "Animal not found" });
+  }
+  const deletedAnimal = await Animal.findByIdAndDelete(id);
+  if (!deletedAnimal) {
+    return res.status(400).json({ error: "Animal not found" });
+  }
+  res.status(200).json(deletedAnimal);
 };
 
 module.exports = {
