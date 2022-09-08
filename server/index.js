@@ -29,7 +29,8 @@ app.use("/animal", animalRoute);
 app.use("/happycall", happycallRoute);
 
 // Happycall관련된 route이지만 /animal이라서 routes로 따로 빼지 못함.
-//이런경우 어떻게?
+//처리 과정중 animal id가 반드시 필요한 상황
+//이런경우 어떻게? happycall/:id/animal/animailId로 바꾸면 되나?
 app.post("/animal/:id/happycall", async (req, res) => {
   const { id } = req.params;
   const animal = await Animal.findById(id);
