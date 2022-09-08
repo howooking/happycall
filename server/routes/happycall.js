@@ -4,7 +4,7 @@ const {
   getAllHappycall,
   getSelectedHappycall,
   updateHappycall,
-} = require("../controllers/happycall");
+} = require("../controllers/happycallController");
 
 router.route("/").get(getAllHappycall);
 router.route("/:id").get(getSelectedHappycall).put(updateHappycall);

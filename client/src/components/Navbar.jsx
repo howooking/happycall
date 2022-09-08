@@ -1,5 +1,3 @@
-//Navbar과 검색기능
-
 import * as React from "react";
 import { AppBar, Box, Toolbar, Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
