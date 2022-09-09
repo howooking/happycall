@@ -27,7 +27,7 @@ export const HappycallListTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {happycallList.map((happycall) => (
+          {happycallList?.map((happycall) => (
             <TableRow
               key={happycall._id}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -45,11 +45,7 @@ export const HappycallListTable = () => {
                 <Button
                   size="small"
                   variant="outlined"
-                  onClick={() =>
-                    navigate(
-                      `/animal/${happycall.animal?._id}/happycall/${happycall._id}`
-                    )
-                  }
+                  onClick={() => navigate(`/happycall/${happycall._id}`)}
                 >
                   자세히
                 </Button>

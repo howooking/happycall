@@ -17,10 +17,10 @@ import useFetch from "../../hook/useFetch";
 
 export const HappycallDetail = () => {
   const navigate = useNavigate();
-  const { id, happycallId } = useParams();
+  const { id } = useParams();
 
   const { data: selectedHappycall, setData: setSelectedHappycall } = useFetch(
-    `http://localhost:5000/happycall/${happycallId}`
+    `http://localhost:5000/happycall/${id}`
   );
 
   const handleChange = (e) => {
@@ -35,12 +35,8 @@ export const HappycallDetail = () => {
     if (
       window.confirm(`${selectedHappycall.animal.name}을(를) 기록하시겠습니까?`)
     ) {
-      //  setSelectedHappycall({ ...selectedHappycall, isDone: true });
       axios
-        .put(
-          `http://localhost:5000/happycall/${happycallId}`,
-          selectedHappycall
-        )
+        .put(`http://localhost:5000/happycall/${id}`, selectedHappycall)
         .then((result) => {
           console.log(result);
         })
@@ -56,7 +52,9 @@ export const HappycallDetail = () => {
       window.confirm(`${selectedHappycall.animal.name}을(를) 삭제하시겠습니까?`)
     ) {
       axios
-        .delete(`http://localhost:5000/animal/${id}/happycall/${happycallId}`)
+        .delete(
+          `http://localhost:5000/happycall/${id}/animal/${selectedHappycall.animal._id}`
+        )
         .then((result) => {
           console.log(result);
         })
@@ -120,7 +118,10 @@ export const HappycallDetail = () => {
       </CardContent>
       <CardActions>
         <ButtonGroup>
-          <Button color="success" onClick={() => navigate(`/animal/${id}`)}>
+          <Button
+            color="success"
+            onClick={() => navigate(`/animal/${selectedHappycall.animal._id}`)}
+          >
             환자정보
           </Button>
           <Button onClick={onEdit}>기록</Button>

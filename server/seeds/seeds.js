@@ -6,7 +6,7 @@ const petname = require("./petname");
 const owner = require("./ownername");
 const species = ["dog", "cat"];
 const sex = ["IM", "CM", "IF", "SF"];
-const Animal = require("../models/animal");
+const Animal = require("../models/animalModel");
 
 const mongoose = require("mongoose");
 mongoose

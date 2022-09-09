@@ -36,10 +36,10 @@ const animalSchema = new Schema(
   { timestamps: true }
 );
 
-// animalSchema.post("findOneAndRemove", async function (animal) {
-//   if (animal.happycalls.length) {
-//     await Happycall.deleteMany({ _id: { $in: animal.happycalls } });
-//   }
-// });
+animalSchema.post("findOneAndRemove", async function (animal) {
+  if (animal.happycalls.length) {
+    await Happycall.deleteMany({ _id: { $in: animal.happycalls } });
+  }
+});
 
 module.exports = mongoose.model("Animal", animalSchema);

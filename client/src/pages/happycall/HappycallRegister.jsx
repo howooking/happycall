@@ -29,7 +29,7 @@ export const HappycallRegister = () => {
   const onSubmit = () => {
     if (window.confirm(`${selectedAnimal.name}의 해피콜을 등록하시겠습니까?`)) {
       axios
-        .post(`http://localhost:5000/animal/${id}/happycall`, register)
+        .post(`http://localhost:5000/happycall/animal/${id}`, register)
         .then((result) => {
           console.log(result);
         })

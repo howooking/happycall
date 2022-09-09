@@ -22,10 +22,7 @@ function App() {
           element={<HappycallRegister />}
         />
         <Route path="happycall" element={<HappycallListTable />} />
-        <Route
-          path="/animal/:id/happycall/:happycallId"
-          element={<HappycallDetail />}
-        />
+        <Route path="/happycall/:id" element={<HappycallDetail />} />
       </Routes>
     </>
   );
