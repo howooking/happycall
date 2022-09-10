@@ -36,9 +36,11 @@ const animalSchema = new Schema(
   { timestamps: true }
 );
 
-animalSchema.post("findOneAndRemove", async function (animal) {
+animalSchema.post("findOneAndDelete", async function (animal) {
+  console.log(animal);
   if (animal.happycalls.length) {
-    await Happycall.deleteMany({ _id: { $in: animal.happycalls } });
+    const res = await Happycall.deleteMany({ _id: { $in: animal.happycalls } });
+    console.log(res);
   }
 });
 

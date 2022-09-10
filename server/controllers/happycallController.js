@@ -37,8 +37,8 @@ const createHappycall = async (req, res) => {
     const newHappycall = new Happycall({ ...req.body, animal });
     await newHappycall.save();
     animal.happycalls.push(newHappycall);
-    res.status(200).json(newHappycall);
     await animal.save();
+    res.status(200).json(newHappycall);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
