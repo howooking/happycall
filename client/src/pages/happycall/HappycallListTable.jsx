@@ -33,12 +33,12 @@ export const HappycallListTable = () => {
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell component="th" scope="happycall">
-                {happycall.animal?.breed === "cat" ? <FaCat /> : <FaDog />}
-                {happycall.animal?.name}
+                {happycall.animal.breed === "cat" ? <FaCat /> : <FaDog />}
+                {happycall.animal.name}
               </TableCell>
               <TableCell align="center">{happycall.cc}</TableCell>
               <TableCell align="center">
-                {happycall.animal?.phonenumber}
+                {happycall.animal.phonenumber}
               </TableCell>
 
               <TableCell align="center">

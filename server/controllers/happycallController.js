@@ -2,7 +2,7 @@ const Happycall = require("../models/happycallModel");
 const Animal = require("../models/animalModel");
 const mongoose = require("mongoose");
 
-// @desc    등록이 된 모든 해피콜 데이터를 가져온다.
+// @desc    get all happycalls
 // @route   GET /happycall
 // @access  Private
 const getAllHappycall = async (req, res) => {
@@ -12,7 +12,7 @@ const getAllHappycall = async (req, res) => {
   res.status(200).json(happycall);
 };
 
-// @desc    해당 id를 가진 해피콜 데이터를 가져온다.
+// @desc    get a single happycall
 // @route   GET happycall/:id
 // @access  Private
 const getSelectedHappycall = async (req, res) => {
@@ -27,15 +27,18 @@ const getSelectedHappycall = async (req, res) => {
   res.status(200).json(selectedHappycall);
 };
 
-// @desc    해피콜을 생성한다.
+// @desc    create a happycall
 // @route   POST happycall/animal/:id
 // @access  Private
 const createHappycall = async (req, res) => {
   const { id } = req.params;
   try {
+    //id에 해당하는 동물을 찾음
     const animal = await Animal.findById(id);
+    //새로운 happycall의 animal 항목에 animal의 id가 들어감.
     const newHappycall = new Happycall({ ...req.body, animal });
     await newHappycall.save();
+    //해당 animal의 happycalls 배열에 새로운 happycall의 id가 들어감.
     animal.happycalls.push(newHappycall);
     await animal.save();
     res.status(200).json(newHappycall);
@@ -44,7 +47,7 @@ const createHappycall = async (req, res) => {
   }
 };
 
-// @desc    해당 id를 가진 해피콜을 수정한다.
+// @desc    edit a happycall
 // @route   PUT /happycall/:id
 // @access  Private
 const updateHappycall = async (req, res) => {
@@ -54,7 +57,9 @@ const updateHappycall = async (req, res) => {
   }
   const updatedHappycall = await Happycall.findByIdAndUpdate(
     id,
+    //"기록"을 누르면 todo가 완료된 것이므로 isDone이 자동으로 true가 된다.
     { ...req.body, isDone: true },
+    //validator와 업데이트 된 반환값
     { runValidators: true, new: true }
   );
   if (!updatedHappycall) {
@@ -63,7 +68,7 @@ const updateHappycall = async (req, res) => {
   res.status(200).json(updatedHappycall);
 };
 
-// @desc    해당 id를 가진 해피콜을 삭제한다.
+// @desc    delete a happycall
 // @route   DELETE /happycall/:id/animal/:animalId
 // @access  Private
 const deleteHappycall = async (req, res) => {
@@ -71,8 +76,11 @@ const deleteHappycall = async (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ error: "happycall not found" });
   }
+  //id에 해당하는 happycall을 삭제
   const deletedHappycall = await Happycall.findByIdAndDelete(id);
+  //animalId에 해당하는 animal을 찾음
   const animal = await Animal.findById(animalId);
+  //animal안의 happycalls 배열에서 id에 해당하는 happycall id 삭제
   await animal.happycalls.pull(id);
   await animal.save();
   res.status(200).json(deletedHappycall);

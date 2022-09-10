@@ -67,4 +67,5 @@ const getRandomImgAndSeeds = async () => {
     await animal.save();
   }
 };
+//creating 20 dummy data of dogs or cats
 getRandomImgAndSeeds();

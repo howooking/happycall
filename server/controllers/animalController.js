@@ -1,24 +1,27 @@
 const Animal = require("../models/animalModel");
 const mongoose = require("mongoose");
 
-// @desc    등록이 된 모든 동물을 가져온다.
+// @desc    get all animals
 // @route   GET /animal
 // @access  Private
 const getAllAnimal = async (req, res) => {
+  //find all animals in mongodb
   const animals = await Animal.find({})
     .sort({ createdAt: -1 })
     .populate("happycalls");
   res.status(200).json(animals);
 };
 
-// @desc    해당 id를 가진 동물을 가져온다.
+// @desc    get a single aimal
 // @route   GET /animal/:id
 // @access  Private
 const getSelectedAnimal = async (req, res) => {
   const { id } = req.params;
+  //몽구스 id형식에 맞지 않아서 발생하는 오류 캐치
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ error: "Animal not found" });
   }
+  //몽구스 id형식은 맞지만 해당 id가 db에 없는 경우
   const selectedAnimal = await Animal.findById(id);
   if (!selectedAnimal) {
     return res.status(404).json({ error: "Animal not found" });
@@ -26,7 +29,7 @@ const getSelectedAnimal = async (req, res) => {
   res.status(200).json(selectedAnimal);
 };
 
-// @desc    새로운 동물을 등록한다.
+// @desc    register a animal
 // @route   POST /animal
 // @access  Private
 const registerNewAnimal = async (req, res) => {
@@ -38,7 +41,7 @@ const registerNewAnimal = async (req, res) => {
   }
 };
 
-// @desc    해당 id를 가진 동물을 수정한다.
+// @desc    edit a animal
 // @route   PUT /animal/:id
 // @access  Private
 const updateAnimal = async (req, res) => {
@@ -47,7 +50,9 @@ const updateAnimal = async (req, res) => {
     return res.status(400).json({ error: "Animal not found" });
   }
   const updatedAnimal = await Animal.findByIdAndUpdate(id, req.body, {
+    //업데이트 할 때도 animal schema의 validation사용
     runValidators: true,
+    //반환값이 업데이트 된 동물
     new: true,
   });
   if (!updatedAnimal) {
@@ -56,7 +61,7 @@ const updateAnimal = async (req, res) => {
   res.status(200).json(updatedAnimal);
 };
 
-// @desc    해당 id를 가진 동물을 삭제한다.
+// @desc    delete a animal
 // @route   DELETE /animal/:id
 // @access  Private
 const deleteAnimal = async (req, res) => {

@@ -8,17 +8,14 @@ const port = process.env.PORT || 5000;
 
 //cors
 const cors = require("cors");
-
-//models
-const Animal = require("./models/animalModel");
-const Happycall = require("./models/happycallModel");
+app.use(cors({ origin: "*" }));
 
 //routes
 const animalRoute = require("./routes/animal");
 const happycallRoute = require("./routes/happycall");
 
 //middlewares
-app.use(cors({ origin: "*" }));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 

@@ -16,13 +16,9 @@ const animalSchema = new Schema(
       type: String,
       required: [true, "phonenumber is required"],
     },
-    species: {
-      type: String,
-    },
+    species: String,
     breed: String,
-    sex: {
-      type: String,
-    },
+    sex: String,
     birth: String,
     image: String,
     memo: String,

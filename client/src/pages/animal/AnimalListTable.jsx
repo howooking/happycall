@@ -32,7 +32,7 @@ export const AnimalListTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {animalList.map((animal) => (
+          {animalList?.map((animal) => (
             <TableRow
               key={animal._id}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}

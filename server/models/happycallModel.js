@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const Animal = require("./animalModel");
 const Schema = mongoose.Schema;
 
 const happycallSchema = new Schema(
