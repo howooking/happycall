@@ -1,38 +1,313 @@
-.App {
-  text-align: center;
-}
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap");
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+body {
+  background-color: #f6f6f6;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-family: "Noto Sans KR", sans-serif;
+  min-height: 100vh;
+  /* margin: 0; */
+}
+
+#root {
+  background-color: #fff;
+  box-shadow: 0 7px 29px 0 rgb(100 100 111 / 20%);
+}
+.App {
+  min-height: 100vh;
+  padding-left: 20px;
+  padding-right: 20px;
+  width: 650px;
+}
+
+/* Button */
+.btn {
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 10px;
+  width: 50px;
+
+  font-family: "Noto Sans KR", sans-serif;
+}
+.btn_main {
+  background-color: #64c964;
+  color: white;
+}
+.btn_sub {
+  background-color: #fd565f;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+/* Header */
+.Header {
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #e2e2e2;
+}
+.Header .header_left {
+  width: 25%;
+}
+.Header .header_center {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  width: 50%;
+}
+.Header .header_right {
+  text-align: end;
+  width: 25%;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Footer */
+.Footer {
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid #e2e2e2;
+}
+.Footer .footer_left {
+  width: 25%;
+}
+.Footer .footer_center {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  width: 50%;
+}
+.Footer .footer_right {
+  text-align: end;
+  width: 25%;
+}
+
+/* Home */
+.Home .center_wrapper {
+  display: flex;
+  align-items: center;
+}
+.Home .center_wrapper .calendar input {
+  width: 16.5px;
+  background-color: #ececec;
+  border: none;
+  border-radius: 5px;
+  margin-right: 5px;
+}
+.Home .center_wrapper .search_wrapper {
+  position: relative;
+}
+.Home .center_wrapper .search_wrapper input {
+  height: 16.5px;
+  width: 16.5px;
+  transition: 0.4s;
+  font-size: 10px;
+  text-align: center;
+  color: #ececec;
+  background-color: #ececec;
+  border: none;
+  border-radius: 5px;
+  margin-left: 5px;
+}
+.Home .center_wrapper input.wide {
+  color: black;
+  width: 100px;
+}
+.Home .center_wrapper .search_wrapper span {
+  position: absolute;
+  left: 2px;
+  font-size: 12px;
+  left: 7px;
+  top: 5px;
+  transition: 0.5s;
+}
+.Home .center_wrapper .search_wrapper span.hide {
+  opacity: 0;
+}
+/* .Home .center_wrapper .search_wrapper button {
+  transition: 0.5s;
+  font-size: 12px;
+  border: none;
+  width: 10px;
+  margin-left: 1px;
+  background-color: #fff;
+  cursor: pointer;
+} */
+.Home .center_wrapper .search_wrapper button.hide {
+  opacity: 0;
+  cursor: default;
+}
+
+/* PatientList */
+
+.PatientList .filterAndButton {
+  margin: 10px 0;
+  display: flex;
+}
+.PatientLis .filterAndButton_off {
+  display: none;
+}
+.PatientList select {
+  margin-right: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ececec;
+  font-family: "Noto Sans KR", sans-serif;
+  padding: 0 10px;
+  cursor: pointer;
+  font-size: 13px;
+  width: 25%;
+}
+.PatientList button {
+  width: 50%;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* Preview */
+.Preview {
+  padding: 15px 0;
+  border-bottom: 1px solid #e2e2e2;
+  display: flex;
+  align-items: center;
+}
+.Preview_완료 {
+  opacity: 0.4;
+  border-bottom: 1px solid #b6b6b6;
+}
+
+.Preview .improve_img_wrapper {
+  min-width: 80px;
+  height: 70px;
+  display: flex;
+  border-radius: 5px;
+  justify-content: center;
+  width: 15%;
+}
+.Preview .improve_img_wrapper_1 {
+  background-color: #64c964;
+}
+.Preview .improve_img_wrapper_2 {
+  background-color: #9dd772;
+}
+.Preview .improve_img_wrapper_3 {
+  background-color: #fdce17;
+}
+.Preview .improve_img_wrapper_4 {
+  background-color: #fd8446;
+}
+.Preview .improve_img_wrapper_5 {
+  background-color: #fd565f;
+}
+
+.Preview .info_wrapper {
+  padding: 0 10px;
+  width: 85%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.Preview .info_wrapper .info_0 {
+  font-size: 12px;
+}
+.Preview .info_wrapper .info_1 {
+  font-weight: 700;
+}
+.Preview .info_wrapper .info_1 {
+  font-weight: 700;
+}
+.Preview .info_wrapper .info_2 {
+}
+.Preview .info_wrapper .info_3 {
+  color: gray;
+}
+
+.Preview .button_wrapper {
+  width: 20%;
+}
+.Preview .button_wrapper button {
+  margin-bottom: 5px;
+  width: 100%;
+}
+
+/* Register */
+.Register section {
+  margin-top: 5px;
+}
+.Register .input_box input {
+  border: none;
+  border-radius: 5px;
+  background-color: #ececec;
+  padding: 5px 5px;
+  font-family: "Noto Sans KR", sans-serif;
+  margin: 5px 10px 0;
+  width: 105px;
+}
+.Register .input_box textarea {
+  border: none;
+  border-radius: 5px;
+  background-color: #ececec;
+  padding: 5px 5px;
+  font-family: "Noto Sans KR", sans-serif;
+  width: 95%;
+  margin: 5px 10px;
+  resize: vertical;
+  height: 100px;
+}
+
+/* Record */
+.Record .improve_list_wrapper {
+  display: flex;
+  margin-bottom: 10px;
+}
+.Record .img_info_wrapper {
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 20px 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0px 10px;
+}
+.Record .img_info_wrapper img {
+  width: 50%;
+  margin: 10px;
+}
+
+.Record .input_box textarea {
+  border: none;
+  border-radius: 5px;
+  background-color: #ececec;
+  padding: 5px 5px;
+  font-family: "Noto Sans KR", sans-serif;
+  width: 95%;
+  margin: 5px 10px;
+  resize: vertical;
+  height: 100px;
+}
+
+/* img on off*/
+.img_info_off {
+  background-color: #ececec;
+}
+.img_info_on_1 {
+  background-color: #64c964;
+  color: white;
+}
+.img_info_on_2 {
+  background-color: #9dd772;
+  color: white;
+}
+.img_info_on_3 {
+  background-color: #fdce17;
+  color: white;
+}
+.img_info_on_4 {
+  background-color: #fd8446;
+  color: white;
+}
+.img_info_on_5 {
+  background-color: #fd565f;
+  color: white;
 }

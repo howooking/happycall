@@ -1,0 +1,32 @@
+export const dummyData = [
+  {
+    id: 0,
+    name: "호우",
+    number: 202300001,
+    cc: "설사",
+    imporve: 3,
+    memo: "호우는 츄르과다 복용한듯",
+    date: 1650807166458,
+    isDone: "not_done",
+  },
+  {
+    id: 1,
+    name: "호두",
+    number: 202300002,
+    cc: "변비",
+    status: 2,
+    memo: "호두는 운동부족",
+    date: 1650807166468,
+    isDone: "done",
+  },
+  {
+    id: 2,
+    name: "베리",
+    number: 202300003,
+    cc: "포피염",
+    status: 1,
+    memo: "베리는 마운팅 중독자",
+    date: 1650807166478,
+    isDone: "done",
+  },
+];
